@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <style>
+        .abcd{
+            background-color: blueviolet;color: darkorange;
+            box-shadow: 4px 4px 6px #c399ec;
+        }
+    </style>
+
+</head>
+<body>
+    欢迎 {{ username }}
+    <a href="/admin/"> <button>进入后台</button>  </a>
+
+    {% for i in href %}
+        <br>
+        <a href="{{i.url }}">{{ i.name }}</a>
+    {% endfor %}
+
+    {% for i in platform %}
+        <br>
+        <a href="{{ i.url }}" style="color: darkgreen;font-size: large" target="_blank">{{ i.name }}</a>
+    {% endfor %}
+    <br>
+    <button onclick="popup()" style="color: chocolate;background-color: blanchedalmond;border: 10px #ff50aa" >点我进入后台</button>
+
+    <button class="abcd">001</button>
+    <button class="abcd">002</button>
+    <button class="abcd">003</button>
+    <button class="abcd">004</button>
+    <script>
+        function popup(){
+            document.location.href = '/admin/'
+        }
+    </script>
+
+
+
+</body>
+</html>
