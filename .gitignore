@@ -1,9 +1,6 @@
-
-.idea/vcs.xml
-.idea/inspectionProfiles/Project_Default.xml
+.idea
 db.sqlite3
 ./__pycache__/
-./Myapp/migrations/__pycache__/
-./Myapp/__pycache__/
-./MyProject/__pycache__/
-.idea
+./Myapp/migrations/__pycache__/*
+./Myapp/__pycache__/*
+./MyProject/__pycache__/*
