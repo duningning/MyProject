@@ -1,3 +1,9 @@
 
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
+db.sqlite3
+./__pycache__/
+./Myapp/migrations/__pycache__/
+./Myapp/__pycache__/
+./MyProject/__pycache__/
+.idea
