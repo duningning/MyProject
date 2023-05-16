@@ -2,72 +2,26 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-{#    <style>#}
-{#        .abcd{#}
-{#            background-color: blueviolet;color: darkorange;#}
-{#            box-shadow: 4px 4px 6px #c399ec;#}
-{#        }#}
-{#        a{#}
-{#            color: red;#}x
-{#        }#}
-{##}
-{#    </style>#}
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首页</title>
-    <link rel="stylesheet" type="text/css" href="../static/201905066953/assets/css/demo.css" />
+
 </head>
 <body>
-{#    {% include 'menu.html' %}#}
+ {% include 'menu.html' %}
+{#      <div class="header-inner">#}
 {##}
-{#    欢迎 {{ username }}#}
-{#    <a href="/admin/"> <button>进入后台</button>  </a>#}
-{##}
-{#    {% for i in href %}#}
-{#        <br>#}
-{#        <a href="{{i.url }}">{{ i.name }}</a>#}
-{#    {% endfor %}#}
-{##}
-{#    {% for i in platform %}#}
-{#        <br>#}
-{#        <a href="{{ i.url }}" style="color: darkgreen;font-size: large" target="_blank">{{ i.name }}</a>#}
-{#    {% endfor %}#}
-{#    <br>#}
-{#    <button onclick="popup()" style="color: chocolate;background-color: blanchedalmond;border: 10px #ff50aa" >点我进入后台</button>#}
-{##}
-{#    <button class="abcd">001</button>#}
-{#    <button class="abcd">002</button>#}
-{#    <button class="abcd">003</button>#}
-{#    <button class="abcd">004</button>#}
-{#    <script>#}
-{#        function popup(){#}
-{#            document.location.href = '/admin/'#}
-{#        }#}
-{#    </script>#}
-
-
-    <div class="loader">
-      <div class="lds-ripple">
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <!-- coidea:loader END -->
-
-    <!-- coidea:header START -->
-    <header>
-      <div class="header-inner">
-        <div class="logo">
-          <a href="/{{ username }}/"><span>欢迎用户 </span>{{ username }}<img src="../static/201905066953/assets/img/icon-next.png" alt="next" /></a>
-        </div>
+{#        <div class="logo">#}
+{#          <a href="/{{ username }}/"><span>欢迎用户 </span>{{ username }}<img src="../static/201905066953/assets/img/icon-next.png" alt="next" /></a>#}
+{#        </div>#}
 {#        <div class="header-headline">#}
 {#          <p>这里是首页文本中的展示</p>#}
 {#        </div>#}
-        <nav class="navigation">
-          <li><a href="/home/"><span>首页</span></a></li>
-          <li><a href="/admin/" target="_blank"><span>管理</span></a></li>
-        </nav>
-      </div>
+{#        <nav class="navigation">#}
+{#          <li><a href="/home/"><span>首页</span></a></li>#}
+{#          <li><a href="/admin/" target="_blank"><span>管理</span></a></li>#}
+{#        </nav>#}
+{#      </div>#}
     </header>
     <!-- coidea:header END -->
 
