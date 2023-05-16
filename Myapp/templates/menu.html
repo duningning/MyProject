@@ -51,7 +51,9 @@
                     </div>
                 </li>
                 <li class="header-menu"><span>Simple menu</span></li>
-                <li><a href="#"><i class="fa fa-tv"></i><span>Menu 1</span></a></li>
+                {% for i in href %}
+                    <li><a target="_blank" href="{{ i.url }}"><i class="fa fa-tv"></i><span>{{ i.name}}</span></a></li>
+                {% endfor %}
 
             </ul>
            </div><!-- sidebar-menu  -->
