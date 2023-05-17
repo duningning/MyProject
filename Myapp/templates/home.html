@@ -10,8 +10,26 @@
 	<div class="page-wrapper">
 
     {% include 'menu.html' %}
-    <main class="page-content">
-        1111
+        <table class="table table-bordered">
+            <caption style="text-align: center">平台目标已接入的端</caption>
+
+            <thead>
+                <tr style="background-color: #808159">
+                    <th>名字</th>
+                    <th>首页网址</th>
+                    <th>监控间隔</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {% for i in platform %}
+                        <tr>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.url }}</td>
+                            <td>{{ i.monitor_time }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
 
     </main><!-- page-content" -->
 
