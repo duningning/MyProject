@@ -7,33 +7,46 @@
 
 </head>
 <body>
-	<div class="page-wrapper">
+<div class="page-wrapper">
 
-    {% include 'menu.html' %}
-        <table class="table table-bordered" style="width: 60%;margin-left: 20%;margin-right: 20%">
-            <caption style="text-align: center">平台目标已接入的端</caption>
-
-            <thead>
-                <tr style="background-color: #808159">
-                    <th>名字</th>
-                    <th>首页网址</th>
-                    <th>监控间隔</th>
-                </tr>
-            </thead>
-                <tbody>
-                    {% for i in platform %}
-                        <tr>
-                            <td>{{ i.name }}</td>
-                            <td>{{ i.url }}</td>
-                            <td>{{ i.monitor_time }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-        </table>
-
-    </main><!-- page-content" -->
+{% include 'menu.html' %}
+    <table class="table table-bordered" style="width: 60%;margin-left: 20%;margin-right: 20%">
+        <caption style="text-align: center">平台目标已接入的端 <a href="#" onclick="add_platform()">新增端</a></caption>
+        <thead>
+            <tr style="background-color: #808159">
+                <th>名字</th>
+                <th>首页网址</th>
+                <th>监控间隔</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for i in platform %}
+                    <tr>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.url }}</td>
+                        <td>{{ i.monitor_time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+</main><!-- page-content" -->
 
 </div>
+<div id="add_platform_div" style="display: none;position: absolute;top: 100px;left: 25%;width: 50%;background-color: #b4b684;
+    padding: 10px;box-shadow: 4px 4px 6px #e9f1c1;text-align: center">
+    <input type="text"> <br>
+    <input type="text"> <br>
+    <input type="text"> <br>
+    <button>保存</button>
+    <button>取消</button>
+</div>
+
+<script>
+    function add_platform(){
+        document.getElementById('add_platform_div').style.display ='block'
+    }
+</script>
+
 
 </body>
 </html>
