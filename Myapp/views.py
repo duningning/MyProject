@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render
 from Myapp.models import *
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 # Create your views here.
 
 def home(request):
@@ -24,3 +24,9 @@ def save_platform(request):
     DB_platform.objects.create(name=platform_name,url=platform_url,monitor_time=platform_monitor_time)
 
     return HttpResponse('')
+
+def del_platform(request,did):
+    # 取到用户前端输入的值
+    DB_platform.objects.filter(id=did).delete() # 删除数据库指定数据
+
+    return HttpResponseRedirect('/home/')

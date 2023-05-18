@@ -17,6 +17,7 @@
                 <th>名字</th>
                 <th>首页网址</th>
                 <th>监控间隔</th>
+                <th>操作</th>
             </tr>
         </thead>
             <tbody>
@@ -25,6 +26,7 @@
                         <td>{{ i.name }}</td>
                         <td>{{ i.url }}</td>
                         <td>{{ i.monitor_time }}</td>
+                        <td><a href="/del_platform/{{ i.id }}"><button class="btn btn-danger">删除</button></a></td>
                     </tr>
                 {% endfor %}
             </tbody>
