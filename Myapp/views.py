@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render
 from Myapp.models import *
-
+from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
@@ -14,3 +14,13 @@ def home(request):
     res['platform'] = DB_platform.objects.all() # 平台数据
 
     return render(request,'home.html',res)# 后端用来把前端的home.html文件返回给浏览器
+
+def save_platform(request):
+    # 取到用户前端输入的值
+    platform_name = request.GET["platform_name"]
+    platform_url = request.GET["platform_url"]
+    platform_monitor_time = request.GET["platform_monitor_time"]
+    # 数据更新到数据库
+    DB_platform.objects.create(name=platform_name,url=platform_url,monitor_time=platform_monitor_time)
+
+    return HttpResponse('')
