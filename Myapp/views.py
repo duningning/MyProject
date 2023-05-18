@@ -29,4 +29,4 @@ def del_platform(request,did):
     # 取到用户前端输入的值
     DB_platform.objects.filter(id=did).delete() # 删除数据库指定数据
 
-    return HttpResponseRedirect('/home/')
+    return HttpResponse('')
