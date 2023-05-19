@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home), # 设置进入首页url
     path('save_platform/', save_platform),  # 保存新端
-    re_path('del_platform/(?P<did>.+)/', del_platform),  # 保存新端
+    re_path('del_platform/(?P<did>.+)/', del_platform),  # 删除端
 ]
