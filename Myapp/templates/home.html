@@ -24,7 +24,7 @@
                 {% for i in platform %}
                     <tr>
                         <td>{{ i.name }}</td>
-                        <td>{{ i.url }}</td>
+                        <td>{{ i.host }}</td>
                         <td>{{ i.monitor_time }}</td>
                         <td><button onclick="del_platform('{{ i.id }}')" class="btn btn-danger">删除</button></td>
                     </tr>
@@ -41,8 +41,8 @@
             <input id="platform_name_input" type="text" class="form-control" placeholder="请输入端名">
         </div>
         <div class="input-group">
-            <span class="input-group-addon">url</span>
-            <input id="platform_url_input" type="text" class="form-control" placeholder="请输入url">
+            <span class="input-group-addon">host</span>
+            <input id="platform_host_input" type="text" class="form-control" placeholder="请输入host">
         </div>
         <div class="input-group">
             <span class="input-group-addon">监控时间间隔</span>
@@ -64,14 +64,14 @@
     function save_plateform(){
         // 获取三个输入框的内容
         var platform_name = document.getElementById('platform_name_input').value;
-        var platform_url = document.getElementById('platform_url_input').value;
+        var platform_host = document.getElementById('platform_host_input').value;
         var platform_monitor_time = document.getElementById('platform_monitor_time_input').value;
         // 把获取到的内容传递给后端
         $.get(
             "/save_platform/",// url http请求的路由
             {
                 "platform_name":platform_name,
-                "platform_url":platform_url,
+                "platform_host":platform_host,
                 "platform_monitor_time":platform_monitor_time
             },// 请求体
             function (ret) { // 请求返回后的动作

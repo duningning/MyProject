@@ -18,10 +18,10 @@ def home(request):
 def save_platform(request):
     # 取到用户前端输入的值
     platform_name = request.GET["platform_name"]
-    platform_url = request.GET["platform_url"]
+    platform_host = request.GET["platform_host"]
     platform_monitor_time = request.GET["platform_monitor_time"]
     # 数据更新到数据库
-    DB_platform.objects.create(name=platform_name,url=platform_url,monitor_time=platform_monitor_time)
+    DB_platform.objects.create(name=platform_name,host=platform_host,monitor_time=platform_monitor_time)
 
     return HttpResponse('')
 
