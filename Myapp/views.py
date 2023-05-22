@@ -22,15 +22,13 @@ def save_platform(request):
     # 取到用户前端输入的值
     platform_name = request.GET["platform_name"]
     platform_host = request.GET["platform_host"]
-    platform_monitor_time = request.GET["platform_monitor_time"]
+
     # 数据更新到数据库
-    platform = DB_platform.objects.create(name=platform_name,host=platform_host,monitor_time=platform_monitor_time)
+    platform = DB_platform.objects.create(name=platform_name,host=platform_host)
     # 复制出自己的调试包
     new_client_name = 'client_'+str(platform.id)
-
     demo_path = 'MyClient/demo_client'
     new_path = 'MyClient/'+new_client_name
-
     shutil.copytree(demo_path,new_path)
 
 
