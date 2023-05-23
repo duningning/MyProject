@@ -20,3 +20,16 @@ class DB_platform(models.Model): # 平台表
 
     def __str__(self):
         return self.name
+
+class DB_case(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True, default='-')
+    platform_id = models.CharField(max_length=20, null=True, blank=True)
+    Concurrency = models.BooleanField(default=True) # 参与并发
+    monitor = models.BooleanField(default=True) # 参与监控
+    py = models.CharField(max_length=20, null=True, blank=True) # 绑定脚本名称
+    counts = models.IntegerField(default=1) # 用例失败重试次数
+
+    def __str__(self):
+        return self.name
+
+
