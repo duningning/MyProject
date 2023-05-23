@@ -39,3 +39,12 @@ def del_platform(request,did):
     DB_platform.objects.filter(id=did).delete() # 删除数据库指定数据
 
     return HttpResponse('')
+
+# 进入用例列表页
+def case_list(request,did):
+    cases = DB_case.objects.filter(platform_id=did)
+
+    res = {}
+    res['cases']= cases
+
+    return render(request,'',res)
