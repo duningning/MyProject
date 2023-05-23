@@ -24,9 +24,12 @@
                 {% for i in platform %}
                     <tr>
                         <td>{{ i.id }}</td>
-                        <td>{{ i.name }}</td>
+                        <td><a href="/case_list/{{ i.id }}/">{{ i.name }}</a></td>
                         <td>{{ i.host }}</td>
-                        <td><button onclick="del_platform('{{ i.id }}')" class="btn btn-danger">删除</button></td>
+                        <td>
+                            <a href="/case_list/{{ i.id }}/"><button class="btn btn-success">进入</button></a>
+                            <button onclick="del_platform('{{ i.id }}')" class="btn btn-danger">删除</button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
