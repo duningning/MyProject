@@ -46,5 +46,19 @@ def case_list(request,did):
 
     res = {}
     res['cases']= cases
+    res['platform'] = DB_platform.objects.filter(id =did)[0]
+    res['href'] = DB_href.objects.all() # 从数据库中拿超链接数据
+    return render(request,'case.html',res)
 
-    return render(request,'',res)
+#添加用例
+def add_case(request, did):
+    DB_case.objects.create(platform_id=did)
+    return HttpResponseRedirect('/case_list/'+did+'/')
+    #return case_list(request,did)
+
+#删除用例
+def del_case(request, cid):
+    case = DB_case.objects.filter(id = cid)
+    palatform_id = case[0].platform_id
+    case.delete()
+    return HttpResponseRedirect('/case_list/'+palatform_id+'/')

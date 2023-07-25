@@ -20,7 +20,10 @@ from Myapp.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home), # 设置进入首页url
+    path('', home),  # 设置进入首页url
     path('save_platform/', save_platform),  # 保存新端
     re_path('del_platform/(?P<did>.+)/', del_platform),  # 删除端
     re_path('case_list/(?P<did>.+)/',  case_list),  # 进入用例列表页
+    re_path('add_case/(?P<did>.+)/', add_case), # 添加用例
+    re_path('del_case/(?P<cid>.+)/', del_case),  # 删除用例
 ]

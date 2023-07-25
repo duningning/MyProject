@@ -3,61 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="shortcut icon" href="../static/R-C.ico">
-
+    <link rel="shortcut icon" href="/static/R-C.ico">
 </head>
 <body>
 <div class="page-wrapper">
-
-{% include 'menu.html' %}
-    <table class="table table-bordered" style="width: 60%;margin-left: 20%;margin-right: 20%">
-        <caption style="text-align: center">平台目标已接入的端 <a href="#" onclick="add_platform()">新增端</a></caption>
-        <thead>
-            <tr style="background-color: #808159">
-                <th>id</th>
-                <th>名字</th>
-                <th>域名</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-            <tbody>
-                {% for i in platform %}
-                    <tr>
-                        <td>{{ i.id }}</td>
-                        <td><a href="/case_list/{{ i.id }}/">{{ i.name }}</a></td>
-                        <td>{{ i.host }}</td>
-                        <td>
-                            <a href="/case_list/{{ i.id }}/"><button class="btn btn-success">进入</button></a>
-                            <button onclick="del_platform('{{ i.id }}')" class="btn btn-danger">删除</button>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-    </table>
-</main><!-- page-content" -->
-
+    {% include 'menu.html' %}
+    <main class="page-content">
+        <table class="table table-bordered" style="width: 60%;margin-left: 20%;margin-right: 20%">
+            <caption style="text-align: center">平台目标已接入的端 <a href="#" onclick="add_platform()">新增端</a></caption>
+            <thead>
+                <tr style="background-color: #808159">
+                    <th>id</th>
+                    <th>名字</th>
+                    <th>域名</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {% for i in platform %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td><a href="/case_list/{{ i.id }}/">{{ i.name }}</a></td>
+                            <td>{{ i.host }}</td>
+                            <td>
+                                <a href="/case_list/{{ i.id }}/"><button class="btn btn-success">进入</button></a>
+                                <button onclick="del_platform('{{ i.id }}')" class="btn btn-danger">删除</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+    </main><!-- page-content" -->
 </div>
-    <div id="add_platform_div" style="display: none;position: absolute;top: 100px;left: 25%;width: 50%;background-color: #b4b684;
-        padding: 10px;box-shadow: 4px 4px 6px #e9f1c1;text-align: center">
-        <div class="input-group">
+<div id="add_platform_div" style="display: none;position: absolute;top: 100px;left: 25%;width: 50%;background-color: #b4b684;padding: 10px;box-shadow: 4px 4px 6px #e9f1c1;text-align: center">
+    <div class="input-group">
             <span class="input-group-addon">端名</span>
             <input id="platform_name_input" type="text" class="form-control" placeholder="请输入端名">
         </div>
-        <div class="input-group">
+    <div class="input-group">
             <span class="input-group-addon">host</span>
             <input id="platform_host_input" type="text" class="form-control" placeholder="请输入host">
         </div>
-        <div class="input-group">
-            <span class="input-group-addon">监控时间间隔</span>
-            <input id="platform_monitor_time_input" type="text" class="form-control" placeholder="请输入新端的监控时间间隔">
+    <div class="btn-group" style="margin-top: 5px">
+            <button onclick="save_plateform()" type="button" class="btn btn-default">保存</button>
+            <button onclick="javascript:document.location.reload()" type="button" class="btn btn-default">取消</button>
         </div>
-
-        <div class="btn-group" style="margin-top: 5px">
-        <button onclick="save_plateform()" type="button" class="btn btn-default">保存</button>
-        <button onclick="javascript:document.location.reload()" type="button" class="btn btn-default">取消</button>
-
-    </div>
-
 </div>
 
 <script>
@@ -68,14 +58,12 @@
         // 获取三个输入框的内容
         var platform_name = document.getElementById('platform_name_input').value;
         var platform_host = document.getElementById('platform_host_input').value;
-        var platform_monitor_time = document.getElementById('platform_monitor_time_input').value;
         // 把获取到的内容传递给后端
         $.get(
             "/save_platform/",// url http请求的路由
             {
                 "platform_name":platform_name,
                 "platform_host":platform_host,
-                "platform_monitor_time":platform_monitor_time
             },// 请求体
             function (ret) { // 请求返回后的动作
                 document.location.reload()//刷新页面
@@ -94,9 +82,6 @@
             })
     }
 </script>
-
-
-
 
 </body>
 </html>
