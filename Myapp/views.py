@@ -48,6 +48,7 @@ def case_list(request,did):
     res['cases']= cases
     res['platform'] = DB_platform.objects.filter(id =did)[0]
     res['href'] = DB_href.objects.all() # 从数据库中拿超链接数据
+    res['hosts'] = DB_platform.objects.filter(id = did)[0].host.split(',')
     return render(request,'case.html',res)
 
 #添加用例

@@ -15,64 +15,80 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active">
-                 <a href="#">Link</a>
+            <li >
+                 <a href="/home/">首页</a>
             </li>
             <li>
-                 <a href="#">Link</a>
+                 <a href="#">并发运行</a>
             </li>
             <li class="dropdown">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">报告<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                         <a href="#">Action</a>
-                    </li>
-                    <li>
-                         <a href="#">Another action</a>
-                    </li>
-                    <li>
-                         <a href="#">Something else here</a>
+                         <a href="#">报告总结</a>
                     </li>
                     <li class="divider">
                     </li>
                     <li>
-                         <a href="#">Separated link</a>
+                         <a href="#">导出报告</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">监控设置<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                         <a href="#">设置</a>
                     </li>
                     <li class="divider">
                     </li>
                     <li>
-                         <a href="#">One more separated link</a>
+                         <a href="#">间隔时间</a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                         <a href="#">启动</a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                         <a href="#">关闭</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">项目设置<strong class="caret"></strong></a>
+                <ul class="dropdown-menu">
+                    <li>
+                         <a href="#">设置</a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                         <a href="#">下载本地调试包</a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                         <a href="#">更新public(管理者)</a>
                     </li>
                 </ul>
             </li>
         </ul>
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" placeholder="搜索用例关键字" />
             </div> <button type="submit" class="btn btn-default">Submit</button>
         </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                 <a href="#">Link</a>
-            </li>
-            <li class="dropdown">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-                <ul class="dropdown-menu">
-                    <li>
-                         <a href="#">Action</a>
-                    </li>
-                    <li>
-                         <a href="#">Another action</a>
-                    </li>
-                    <li>
-                         <a href="#">Something else here</a>
-                    </li>
-                    <li class="divider">
-                    </li>
-                    <li>
-                         <a href="#">Separated link</a>
-                    </li>
-                </ul>
+        <ul class="navbar-nav navbar-right">
+            <li style="margin-right: 10px">
+                <select class="form-control" name="" id="" style="margin-top: 8.5px">
+                    {%  for i in hosts %}
+                        <option value="">环境：{{ i }}</option>
+                    {% endfor %}
+
+                </select>
             </li>
         </ul>
     </div>
@@ -82,7 +98,7 @@
     {% include 'menu.html' %}
     <main class="page-content" >
         <table class="table table-bordered" style="width: 70%;margin-left: 15%" >
-            <caption style="text-align: center"> {{ platform.name}} 的用例如下： <a href="/add_case/{{ platform.id}}/" >新增用例</a></caption>
+            <caption style="text-align: center"> 项目：【<span style="color: mediumorchid">{{ platform.name}}</span>】的用例如下： <a href="/add_case/{{ platform.id}}/" >新增用例</a></caption>
             <thead>
                 <tr style="background: linear-gradient(to right,#8a7848,#8a832b,#448355)">
                     <th style="width: 200px">id</th>
@@ -114,8 +130,13 @@
     </main><!-- page-content" -->
 </div>
 
-
-
+<div style="width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;
+            box-shadow: 4px 4px 6px grey">
+    <div class="input-group input-group-sm">
+        <span class="input-group-addon">用例名称</span>
+        <input type="text" class="form-control" placeholder="Twitterhandle">
+    </div>
+</div>
 
 </body>
 </html>
