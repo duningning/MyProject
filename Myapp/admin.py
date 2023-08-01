@@ -6,3 +6,4 @@ from Myapp.models import *
 
 admin.site.register(DB_href)
 admin.site.register(DB_platform)
+admin.site.register(DB_case)

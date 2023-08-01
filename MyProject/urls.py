@@ -26,4 +26,6 @@ urlpatterns = [
     re_path('case_list/(?P<did>.+)/',  case_list),  # 进入用例列表页
     re_path('add_case/(?P<did>.+)/', add_case), # 添加用例
     re_path('del_case/(?P<cid>.+)/', del_case),  # 删除用例
+    path('set_case/', set_case),  # 获取用例数据
+    path('save_case/', save_case),  # 保存用例数据
 ]

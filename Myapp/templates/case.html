@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation" style="border-radius:0; box-shadow: 4px 4px 6px grey; background:linear-gradient(to right,#ada38a,#ada86a,#8ee8a6)">
     <div class="navbar-header">
          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
         <a class="navbar-brand" href="#" style="margin-right: 25px"></a>
@@ -117,7 +117,7 @@
                         <td>{{ i.name }}</td>
                         <td>
                             <div>
-                                <button type="button" class="btn btn-default">设置</button>
+                                <button onclick="set_case({{i.id }})"type="button" class="btn btn-default">设置</button>
                                 <button type="button" class="btn btn-default">运行</button>
                                 <button type="button" class="btn btn-default">报告</button>
                                 <button onclick="javascript:document.location.href='/del_case/{{ i.id }}/'" type="button" class="btn btn-danger">删除</button>
@@ -130,13 +130,91 @@
     </main><!-- page-content" -->
 </div>
 
-<div style="width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;
-            box-shadow: 4px 4px 6px grey">
-    <div class="input-group input-group-sm">
+
+<div id="case_div" style=" z-index: 999; display:none;width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;
+      box-shadow: 4px 4px 6px grey">
+    <div class="input-group input-group-sm" style="margin-top: 5px">
         <span class="input-group-addon">用例名称</span>
+        <input  id="case_name" type="text" class="form-control" placeholder="">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">重试次数</span>
+        <input id="case_counts" type="text" class="form-control" placeholder="">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">并发用例</span>
+        <span class="input-group-addon" style="width: 3px;background-color: white">
+            <label >
+                <input id="Concurrency_true" type="radio" name="radio_Concurrency" value="True">
+                <span style="font-size: medium">是</span>
+            </label>
+        </span>
+        <span class="input-group-addon" style="width: 3px;background-color: white">
+            <label >
+                <input id="Concurrency_false" type="radio" name="radio_Concurrency" value="False">
+                <span style="font-size: medium">否</span>
+            </label>
+        </span>
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">监控用例</span>
+        <span class="input-group-addon" style="width: 3px;background-color: white">
+            <label >
+                <input id="monitor_true" type="radio" name="radio_monitor" value="True">
+                <span style="font-size: medium">是</span>
+            </label>
+        </span>
+        <span class="input-group-addon" style="width: 3px;background-color: white">
+            <label >
+                <input id="monitor_false" type="radio" name="radio_monitor" value="False">
+                <span style="font-size: medium">否</span>
+            </label>
+        </span>
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">上传脚本</span>
         <input type="text" class="form-control" placeholder="Twitterhandle">
     </div>
+    <div class="input-group input-group-sm" style="width: 100%" style="margin-top: 5px">
+        <button onclick="javascript:document.location.reload()" class = "btn btn-default" style="outline: none;width: 50%">取消</button>
+        <button onclick="save_case()" class = "btn btn-success" style="outline: none;width: 50%">保存</button>
+    </div>
+<input type="text" value="" id="case_id" style="display: none">
+
 </div>
 
+<script>
+    function set_case(id){
+        //显示这个弹层
+        document.getElementById('case_div').style.display= 'block';
+        //去后台拿数据
+        $.get('/set_case/',{"id":id},function (ret){
+            console.log(ret)
+            document.getElementById('case_name').value =ret.name;
+            document.getElementById('case_counts').value =ret.counts;
+            document.getElementById('Concurrency_'+ret.Concurrency).checked = 'checked';
+            document.getElementById('monitor_'+ret.monitor).checked = 'checked';
+            document.getElementById('case_id').value = ret.id;
+
+        })
+    }
+    function save_case(){
+        // 确定当前打开的是哪个用例
+        case_id = document.getElementById('case_id').value;
+        // 获取弹层数据
+        // 把数据发给服务器
+        $.get('/save_case/',{
+            "case_id": case_id,
+            "case_name": document.getElementById('case_name').value,
+            "case_counts": $('#case_counts').val(),
+            "Concurrency": $(':radio[name="radio_Concurrency"]:checked').val(),
+            "monitor": $(':radio[name="radio_monitor"]:checked').val(),
+        },function (ret){
+            document.location.reload() // 保存后刷新页面
+        })
+
+        
+    }
+</script>
 </body>
 </html>

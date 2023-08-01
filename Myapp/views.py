@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 import shutil
 
@@ -63,3 +64,24 @@ def del_case(request, cid):
     palatform_id = case[0].platform_id
     case.delete()
     return HttpResponseRedirect('/case_list/'+palatform_id+'/')
+
+# 用例列表页-设置-获取用例数据
+def set_case(request):
+    case_id = request.GET['id']
+    case = list(DB_case.objects.filter(id=case_id).values())[0]
+    print(case)
+    print(type(case))
+
+    return HttpResponse(json.dumps(case),content_type="application/json")
+
+# 用例列表页-设置-保存用例数据
+def save_case(request):
+    case_id = request.GET['case_id']
+    case_name = request.GET['case_name']
+    case_counts = request.GET['case_counts']
+    Concurrency = request.GET['Concurrency']
+    monitor = request.GET['monitor']
+
+    DB_case.objects.filter(id=case_id).update(name =case_name,counts=case_counts,Concurrency=Concurrency,monitor=monitor)
+
+    return HttpResponse('')
