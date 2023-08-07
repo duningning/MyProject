@@ -85,3 +85,36 @@ def save_case(request):
     DB_case.objects.filter(id=case_id).update(name =case_name,counts=case_counts,Concurrency=Concurrency,monitor=monitor)
 
     return HttpResponse('')
+
+# 获取监控设置
+# def set_monitor(request):
+#     # 从前端获取需要的数据
+#     platform_id = request.GET["platform_id"]
+#     # 跟数据库进行交互
+#     monitor = DB_platform.
+#     # 返回给前端结果
+# # 保存监控设置
+def save_monitor(request):
+    monitor_time = request.GET['monitor_time']
+    monitor_phone = request.GET['monitor_phone']
+    monitor_email = request.GET['monitor_email']
+    monitor_feishu = request.GET['monitor_feishu']
+    platform_id = request.GET['platform_id']
+
+    DB_platform.objects.filter(id=platform_id).update(monitor_time=monitor_time,
+                                                      monitor_phone=monitor_phone,
+                                                      monitor_email=monitor_email,
+                                                      monitor_feishu=monitor_feishu
+                                                      )
+    return HttpResponse('')
+
+# # 保存旧端
+def save_old_platform(request):
+    name = request.GET['name']
+    host = request.GET['host']
+    platform_id = request.GET['platform_id']
+
+    DB_platform.objects.filter(id=platform_id).update(name=name,
+                                                      host=host,
+                                                      )
+    return HttpResponse('')

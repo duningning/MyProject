@@ -28,4 +28,8 @@ urlpatterns = [
     re_path('del_case/(?P<cid>.+)/', del_case),  # 删除用例
     path('set_case/', set_case),  # 获取用例数据
     path('save_case/', save_case),  # 保存用例数据
+    # path('set_monitor/', set_monitor),  # 获取监控设置
+    path('save_monitor/', save_monitor),  # 保存监控设置
+
+    path('save_old_platform/', save_old_platform),  # 保存旧端的设置
 ]

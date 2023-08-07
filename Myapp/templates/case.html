@@ -20,12 +20,15 @@
             <li >
                  <a href="/home/">首页</a>
             </li>
-            <li>
-                 <a href="#">并发运行</a>
-            </li>
+
             <li class="dropdown">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">报告<strong class="caret"></strong></a>
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">并发运行<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
+                    <li>
+                         <a href="#">并发运行</a>
+                    </li>
+                        <li class="divider">
+                    </li>
                     <li>
                          <a href="#">报告总结</a>
                     </li>
@@ -40,12 +43,7 @@
                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">监控设置<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                         <a href="#">设置</a>
-                    </li>
-                    <li class="divider">
-                    </li>
-                    <li>
-                         <a href="#">间隔时间</a>
+                         <a href="#" onclick="set_monitor()">设置</a>
                     </li>
                     <li class="divider">
                     </li>
@@ -63,7 +61,7 @@
                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">项目设置<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                         <a href="#">设置</a>
+                         <a href="#" onclick="set_platform()">设置</a>
                     </li>
                     <li class="divider">
                     </li>
@@ -133,8 +131,7 @@
 </div>
 
 
-<div id="case_div" style=" z-index: 999; display:none;width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;
-      box-shadow: 4px 4px 6px grey">
+<div id="case_div" style=" z-index: 999; display:none;width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;box-shadow: 4px 4px 6px grey">
     <div class="input-group input-group-sm" style="margin-top: 5px">
         <span class="input-group-addon">用例名称</span>
         <input  id="case_name" type="text" class="form-control" placeholder="">
@@ -184,7 +181,6 @@
 <input type="text" value="" id="case_id" style="display: none">
 
 </div>
-
 <script>
     function set_case(id){
         //显示这个弹层
@@ -218,5 +214,94 @@
         
     }
 </script>
+
+<div id="monitor_div" style=" z-index: 999; display:none;width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;box-shadow: 4px 4px 6px grey">
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">间隔时间</span>
+        <input  id="monitor_time" type="text" class="form-control" placeholder="" value="{{ platform.monitor_time }}">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">手机号码</span>
+        <input  id="monitor_phone" type="text" class="form-control" placeholder="多个之间用英文逗号隔开" value="{{ platform.monitor_phone }}">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">邮件地址</span>
+        <input  id="monitor_email" type="text" class="form-control" placeholder="多个之间用英文逗号隔开" value="{{ platform.monitor_email }}">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">飞书地址</span>
+        <input  id="monitor_feishu" type="text" class="form-control" placeholder="" value="{{ platform.monitor_feishu }}">
+    </div>
+    <div class="input-group input-group-sm" style="width: 100%" style="margin-top: 5px">
+        <button onclick="javascript:document.location.reload()" class = "btn btn-default" style="outline: none;width: 50%">取消</button>
+        <button onclick="save_monitor()" class = "btn btn-success" style="outline: none;width: 50%">保存</button>
+    </div>
+
+</div>
+<script>
+    function set_monitor(){
+        //显示这个弹层
+        document.getElementById('monitor_div').style.display= 'block';
+        //去后台拿数据
+        {#$.get('/set_monitor/',{"platform_id":"{{ platform.id }}"},#}
+        {#    function (ret){#}
+        {#    console.log(ret)#}
+        {#    document.getElementById('monitor_time').value =ret.monitor_time;#}
+        {#    document.getElementById('monitor_phone').value =ret.monitor_phone;#}
+        {#    document.getElementById('monitor_email').value =ret.monitor_email;#}
+        {#    document.getElementById('monitor_feishu').value =ret.monitor_feishu;})#}
+    }
+    function save_monitor(){
+        // 把数据发给服务器
+        $.get('/save_monitor/',{
+            "monitor_time": document.getElementById('monitor_time').value,
+            "monitor_phone": document.getElementById('monitor_phone').value,
+            "monitor_email": document.getElementById('monitor_email').value,
+            "monitor_feishu": document.getElementById('monitor_feishu').value,
+            "platform_id": "{{ platform.id }}",
+
+        },function (ret){
+            document.location.reload() // 保存后刷新页面
+        })
+
+
+    }
+</script>
+
+<div id="platform_div" style=" z-index: 999; display:none;width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;box-shadow: 4px 4px 6px grey">
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">名字</span>
+        <input  id="platform_name" type="text" class="form-control" placeholder="" value="{{ platform.name }}">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">域名</span>
+        <input  id="platform_host" type="text" class="form-control" placeholder="多个之间用英文逗号隔开" value="{{ platform.host }}">
+    </div>
+    <div class="input-group input-group-sm" style="width: 100%" style="margin-top: 5px">
+        <button onclick="javascript:document.location.reload()" class = "btn btn-default" style="outline: none;width: 50%">取消</button>
+        <button onclick="save_platform()" class = "btn btn-success" style="outline: none;width: 50%">保存</button>
+    </div>
+
+</div>
+<script>
+    function set_platform(){
+        //显示这个弹层
+        document.getElementById('platform_div').style.display= 'block';
+    }
+    function save_platform(){
+        // 把数据发给服务器
+        $.get('/save_old_platform/',{
+            "name": document.getElementById('platform_name').value,
+            "host": document.getElementById('platform_host').value,
+            "platform_id": "{{ platform.id }}",
+
+        },function (ret){
+            document.location.reload() // 保存后刷新页面
+        })
+
+
+    }
+</script>
+
 </body>
 </html>
