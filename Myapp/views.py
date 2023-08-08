@@ -25,7 +25,7 @@ def save_platform(request):
     platform_host = request.GET["platform_host"]
 
     # 数据更新到数据库
-    platform = DB_platform.objects.create(name=platform_name,host=platform_host)
+    platform = DB_platform.objects.create(name=platform_name,host=platform_host,user=request.user.username)
     # 复制出自己的调试包
     new_client_name = 'client_'+str(platform.id)
     demo_path = 'MyClient/demo_client'

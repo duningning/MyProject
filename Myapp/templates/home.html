@@ -4,35 +4,35 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="shortcut icon" href="/static/R-C.ico">
+
+    <link rel="stylesheet" type="text/css" href="/static/home_css/css/normalize.css" /><!--CSS RESET-->
+	<link rel="stylesheet" type="text/css" href="/static/home_css/css/htmleaf-demo.css"><!--演示页面样式，使用时可以不引用-->
+	<link rel="stylesheet" href="/static/home_css/style.css">
+
+
 </head>
 <body>
 <div class="page-wrapper">
     {% include 'menu.html' %}
     <main class="page-content">
-        <table class="table table-bordered" style="width: 60%;margin-left: 20%;margin-right: 20%">
-            <caption style="text-align: center">平台目标已接入的端 <a href="#" onclick="add_platform()">新增端</a></caption>
-            <thead>
-                <tr style="background-color: #808159">
-                    <th>id</th>
-                    <th>名字</th>
-                    <th>域名</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-                <tbody>
-                    {% for i in platform %}
-                        <tr>
-                            <td>{{ i.id }}</td>
-                            <td><a href="/case_list/{{ i.id }}/">{{ i.name }}</a></td>
-                            <td>{{ i.host }}</td>
-                            <td>
-                                <a href="/case_list/{{ i.id }}/"><button class="btn btn-success">进入</button></a>
-                                <button onclick="del_platform('{{ i.id }}')" class="btn btn-danger">删除</button>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-        </table>
+        <h1 style="text-align: center" >欢迎使用 web 自动化集成平台</h1>
+        <h4 style="text-align: center">请选择端 或 新增 <a href="#" onclick="add_platform()">新增端</a> </h4>
+        <main id=app style="text-align: center; margin-top: 40px ">
+        {% for i in platform %}
+              <mochi-box shiba="ume" mood="happy" blush
+                left-eye="laugh" right-eye="laugh"
+                left-ear="down" right-ear="down">
+                <h2><a href="/case_list/{{ i.id }}/">{{ i.name }}</a></h2>
+                <h3>
+                  <p  class="shop kotobuki" title="kotobuki" target="_blank" href="#" onclick="del_platform('{{ i.id }}')">删除</p>
+                </h3>
+                  <p  class="shop kotobuki" title="kotobuki" >管理者：{{ i.user }}</p>
+
+              </mochi-box>
+
+        {% endfor %}
+        </main>
+
     </main><!-- page-content" -->
 </div>
 <div id="add_platform_div" style="display: none;position: absolute;top: 100px;left: 25%;width: 50%;background-color: #b4b684;padding: 10px;box-shadow: 4px 4px 6px #e9f1c1;text-align: center">
@@ -82,6 +82,7 @@
             })
     }
 </script>
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
+<script  src="/static/home_css/script.js"></script>
 </body>
 </html>
