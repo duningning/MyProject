@@ -6,9 +6,7 @@
     <link rel="shortcut icon" href="/static/R-C.ico">
 
     <link rel="stylesheet" type="text/css" href="/static/home_css/css/normalize.css" /><!--CSS RESET-->
-	<link rel="stylesheet" type="text/css" href="/static/home_css/css/htmleaf-demo.css"><!--演示页面样式，使用时可以不引用-->
 	<link rel="stylesheet" href="/static/home_css/style.css">
-
 
 </head>
 <body>
@@ -24,7 +22,7 @@
                 left-ear="down" right-ear="down">
                 <h2><a href="/case_list/{{ i.id }}/">{{ i.name }}</a></h2>
                 <h3>
-                  <p  class="shop kotobuki" title="kotobuki" target="_blank" href="#" onclick="del_platform('{{ i.id }}')">删除</p>
+                  <p  class="shop kotobuki" title="kotobuki"  href="#" onclick="del_platform('{{ i.id }}')">删除</p>
                 </h3>
                   <p  class="shop kotobuki" title="kotobuki" >管理者：{{ i.user }}</p>
 
