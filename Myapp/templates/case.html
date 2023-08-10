@@ -275,7 +275,15 @@
     </div>
     <div class="input-group input-group-sm" style="margin-top: 5px">
         <span class="input-group-addon">域名</span>
-        <input  id="platform_host" type="text" class="form-control" placeholder="多个之间用英文逗号隔开" value="{{ platform.host }}">
+        <input  id="platform_host" type="text" class="form-control" placeholder="多个域名之间用英文逗号隔开" value="{{ platform.host }}">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">管理</span>
+        <input  id="platform_user" type="text" class="form-control" placeholder="多个管理员之间用英文逗号隔开" value="{{ platform.user }}">
+    </div>
+    <div class="input-group input-group-sm" style="margin-top: 5px">
+        <span class="input-group-addon">并发</span>
+        <input  id="platform_max_Concurrency" type="text" class="form-control" placeholder="该端最大并发次数" value="{{ platform.max_Concurrency }}">
     </div>
     <div class="input-group input-group-sm" style="width: 100%" style="margin-top: 5px">
         <button onclick="javascript:document.location.reload()" class = "btn btn-default" style="outline: none;width: 50%">取消</button>
@@ -293,6 +301,8 @@
         $.get('/save_old_platform/',{
             "name": document.getElementById('platform_name').value,
             "host": document.getElementById('platform_host').value,
+            "user": document.getElementById('platform_user').value,
+            "max_Concurrency": document.getElementById('platform_max_Concurrency').value,
             "platform_id": "{{ platform.id }}",
 
         },function (ret){

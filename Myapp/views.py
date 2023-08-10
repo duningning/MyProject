@@ -112,9 +112,13 @@ def save_monitor(request):
 def save_old_platform(request):
     name = request.GET['name']
     host = request.GET['host']
+    user = request.GET['user']
+    max_Concurrency = request.GET['max_Concurrency']
     platform_id = request.GET['platform_id']
 
     DB_platform.objects.filter(id=platform_id).update(name=name,
                                                       host=host,
+                                                      user=user,
+                                                      max_Concurrency=max_Concurrency
                                                       )
     return HttpResponse('')
