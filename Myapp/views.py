@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import shutil
+import subprocess
 
 from django.shortcuts import render
 from Myapp.models import *
@@ -140,3 +141,15 @@ def upload_py(request, cid):
     DB_case.objects.filter(id=cid).update(py=file_name)
     # 返回
     return HttpResponseRedirect('/case_list/%s/'%platform_id)
+
+# 执行脚本
+def run_case(request):
+    case_id = request.GET['case_id']
+    case = DB_case.objects.filter(id=case_id)[0]
+    platform_id = case.platform_id
+    py = case.py
+    if py in ['',None,' ','None']:
+        return HttpResponse('Error')
+    subprocess.call('python3 MyClient/client_%s/cases/%s'%(platform_id,py),shell=True)
+
+    return HttpResponse('')

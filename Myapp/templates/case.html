@@ -116,11 +116,11 @@
                         <td>{{ i.Concurrency }}</td>
                         <td>{{ i.monitor }}</td>
                         <td style="color: mediumvioletred">{{ i.name }}</td>
-                        <td style="">{{ i.py }}</td>
+                        <td style="font-size: xx-small">{{ i.py }}</td>
                         <td>
                             <div>
-                                <button onclick="set_case({{i.id }})"type="button" class="btn btn-default">设置</button>
-                                <button type="button" class="btn btn-default">运行</button>
+                                <button onclick="set_case('{{ i.id }}')" type="button" class="btn btn-default">设置</button>
+                                <button id="btn_run_{{ i.id }}" onclick="run_case('{{ i.id }}')" type="button" class="btn btn-default">运行</button>
                                 <button type="button" class="btn btn-default">报告</button>
                                 <button onclick="javascript:document.location.href='/del_case/{{ i.id }}/'" type="button" class="btn btn-danger">删除</button>
                             </div>
@@ -220,10 +220,21 @@
         },function (ret){
             var bd = document.getElementById('upload_py');
                 bd.submit();
-
+        })
+    }
+    function run_case(case_id){
+        document.getElementById('btn_run_'+case_id).innerText = '运行中...';
+        $.get('/run_case/',{
+            "case_id":case_id
+        },function (ret){
+            if (ret != 'Error'){
+                alert('Success!')
+            }else{
+                alert('Fail!')
+            }
+            document.getElementById('btn_run_'+case_id).innerText = '运行';
         })
 
-        
     }
 </script>
 

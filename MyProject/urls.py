@@ -33,4 +33,5 @@ urlpatterns = [
     path('save_old_platform/', save_old_platform),  # 保存旧端的设置
 
     re_path('upload_py/(?P<cid>.+)/',upload_py),  # 上传脚本
+    path('run_case/',run_case), # 执行脚本
 ]
