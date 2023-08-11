@@ -108,7 +108,7 @@ def save_monitor(request):
                                                       )
     return HttpResponse('')
 
-# # 保存旧端
+# 保存旧端
 def save_old_platform(request):
     name = request.GET['name']
     host = request.GET['host']
@@ -122,3 +122,21 @@ def save_old_platform(request):
                                                       max_Concurrency=max_Concurrency
                                                       )
     return HttpResponse('')
+
+# 上传脚本
+def upload_py(request, cid):
+    # 拿到端 id
+    platform_id = DB_case.objects.filter(id=cid)[0].platform_id
+    # 获取到上传的脚本
+    myFile = request.FILES.get("fileUpload",None)
+    if not myFile:
+        return HttpResponseRedirect('/case_list/%s/'%platform_id)
+    file_name = str(myFile)
+    fp = open('MyClient/client_%s/cases/%s'%(platform_id,file_name),'wb+')
+    for i in myFile.chunks():
+        fp.write(i)
+    fp.close()
+    # 更新用例的数据库
+    DB_case.objects.filter(id=cid).update(py=file_name)
+    # 返回
+    return HttpResponseRedirect('/case_list/%s/'%platform_id)

@@ -105,6 +105,7 @@
                     <th style="width: 200px">并发</th>
                     <th style="width: 200px">监控</th>
                     <th>名字</th>
+                    <th>脚本</th>
                     <th style="width: 200px"> 操作</th>
                 </tr>
             </thead>
@@ -114,7 +115,8 @@
                         <td>{{ i.id }}</td>
                         <td>{{ i.Concurrency }}</td>
                         <td>{{ i.monitor }}</td>
-                        <td>{{ i.name }}</td>
+                        <td style="color: mediumvioletred">{{ i.name }}</td>
+                        <td style="">{{ i.py }}</td>
                         <td>
                             <div>
                                 <button onclick="set_case({{i.id }})"type="button" class="btn btn-default">设置</button>
@@ -172,7 +174,13 @@
     </div>
     <div class="input-group input-group-sm" style="margin-top: 5px">
         <span class="input-group-addon">上传脚本</span>
-        <input type="text" class="form-control" placeholder="Twitterhandle">
+        <span class="input-group-addon" style="background-color: white;width:3px" id="case_script_name"></span>
+        <sapn class="input-group-addon" style="background-color: white;width:3px">
+            <form id="upload_py" action="" method="post" enctype="multipart/form-data">
+                <input type="file" name="fileUpload">
+            </form>
+        </sapn>
+
     </div>
     <div class="input-group input-group-sm" style="width: 100%" style="margin-top: 5px">
         <button onclick="javascript:document.location.reload()" class = "btn btn-default" style="outline: none;width: 50%">取消</button>
@@ -193,6 +201,8 @@
             document.getElementById('Concurrency_'+ret.Concurrency).checked = 'checked';
             document.getElementById('monitor_'+ret.monitor).checked = 'checked';
             document.getElementById('case_id').value = ret.id;
+            document.getElementById('case_script_name').innerText = ret.py;
+            document.getElementById('upload_py').action = '/upload_py/'+id+'/';
 
         })
     }
@@ -208,7 +218,9 @@
             "Concurrency": $(':radio[name="radio_Concurrency"]:checked').val(),
             "monitor": $(':radio[name="radio_monitor"]:checked').val(),
         },function (ret){
-            document.location.reload() // 保存后刷新页面
+            var bd = document.getElementById('upload_py');
+                bd.submit();
+
         })
 
         

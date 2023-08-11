@@ -30,6 +30,7 @@ urlpatterns = [
     path('save_case/', save_case),  # 保存用例数据
     # path('set_monitor/', set_monitor),  # 获取监控设置
     path('save_monitor/', save_monitor),  # 保存监控设置
-
     path('save_old_platform/', save_old_platform),  # 保存旧端的设置
+
+    re_path('upload_py/(?P<cid>.+)/',upload_py),  # 上传脚本
 ]
