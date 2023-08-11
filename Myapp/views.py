@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import subprocess
+import threading
 
 from django.shortcuts import render
 from Myapp.models import *
@@ -153,3 +154,14 @@ def run_case(request):
     subprocess.call('python3 MyClient/client_%s/cases/%s'%(platform_id,py),shell=True)
 
     return HttpResponse('')
+
+# 并发用例
+def bf_case(request,did):
+    # 所有需要并发的case先拿出来
+    DB_case.object.filter(platform_id=did,Concurrency=True)
+
+    def do_case(case):
+        subprocess.call('python3 MyClient/client_%s/cases/%s'%(case.platform_id,case.py),shell=True)
+        print('执行完：',case.name)
+
+    # return HttpResponse('')

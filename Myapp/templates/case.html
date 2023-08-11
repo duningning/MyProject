@@ -25,7 +25,7 @@
                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">并发运行<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                         <a href="#">并发运行</a>
+                         <a href="#" onclick="bf_case()">并发运行</a>
                     </li>
                         <li class="divider">
                     </li>
@@ -234,8 +234,20 @@
             }
             document.getElementById('btn_run_'+case_id).innerText = '运行';
         })
-
     }
+    function bf_case(){
+        $.get('/bf_case/{{ platform.id }}/',{
+
+            },function (ret){
+                if (ret != 'Error'){
+                    alert('并发：Success!')
+                }else{
+                    alert('并发：Fail!')
+                }
+            })
+    }
+
+
 </script>
 
 <div id="monitor_div" style=" z-index: 999; display:none;width: 70%;position: fixed;left: 15%;top: 100px;background-color: white;border-radius: 3px;box-shadow: 4px 4px 6px grey">
