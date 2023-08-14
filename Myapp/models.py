@@ -19,7 +19,7 @@ class DB_platform(models.Model): # 平台表
     host = models.CharField(max_length=500, null=True, blank=True)
 
     user = models.CharField(max_length=20, null=True, blank=True)
-    max_Concurrency = models.CharField(max_length=20, null=True, blank=True)# 最大并发次数
+    max_Concurrency = models.IntegerField(default=5)# 最大并发次数
 
     def __str__(self):
         return self.name

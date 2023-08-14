@@ -35,5 +35,5 @@ urlpatterns = [
     re_path('upload_py/(?P<cid>.+)/',upload_py),  # 上传脚本
     path('run_case/',run_case), # 执行脚本
 
-    re_path('bf_case/(?P<cid>.+)/', bf_case),  # 并发用例
+    re_path('bf_case/(?P<did>.+)/', bf_case),  # 并发用例
 ]

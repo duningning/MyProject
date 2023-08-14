@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import threading
+import time
 
 from django.shortcuts import render
 from Myapp.models import *
@@ -158,10 +159,34 @@ def run_case(request):
 # 并发用例
 def bf_case(request,did):
     # 所有需要并发的case先拿出来
-    DB_case.object.filter(platform_id=did,Concurrency=True)
+    cases = DB_case.objects.filter(platform_id=did,Concurrency=True)
+    max_bf = DB_platform.objects.filter(id = did)[0].max_Concurrency
+
 
     def do_case(case):
-        subprocess.call('python3 MyClient/client_%s/cases/%s'%(case.platform_id,case.py),shell=True)
+        subprocess.call('python3 MyClient/client_%s/cases/%s' % (case.platform_id,case.py),shell=True)
         print('执行完：',case.name)
+
+    ts =[]
+    for case in cases:
+        if case.py not in ['',None,' ','Npne']:
+            t = threading.Thread(target=do_case,args=(case,)) # 声明子线程
+            t.setDaemon(True) # 设置守护线程
+            ts.append(t) # 添加到线程池
+    for i in range(0,len(ts),max_bf):
+        tmp = ts[i:i+max_bf]
+        for t in tmp: # 启动线程
+            t.start()
+        for t in tmp: # 让主线程等待
+            t.join()
+
+
+
+    time.sleep(1)
+
+    print("全部执行完毕")
+    return HttpResponse('')
+
+
 
     # return HttpResponse('')
