@@ -36,4 +36,6 @@ urlpatterns = [
     path('run_case/',run_case), # 执行脚本
 
     re_path('bf_case/(?P<did>.+)/', bf_case),  # 并发用例
+    re_path('start_monitor/(?P<did>.+)/', start_monitor),  # 启动监控
+    re_path('stop_monitor/(?P<did>.+)/', stop_monitor),  # 停止监控
 ]

@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import threading
 import time
+import re
 
 from django.shortcuts import render
 from Myapp.models import *
@@ -163,13 +164,13 @@ def bf_case(request,did):
     max_bf = DB_platform.objects.filter(id = did)[0].max_Concurrency
 
 
-    def do_case(case):
+    def do_case(case): # 线程要运行的函数
         subprocess.call('python3 MyClient/client_%s/cases/%s' % (case.platform_id,case.py),shell=True)
         print('执行完：',case.name)
 
-    ts =[]
+    ts =[] # 声明空的线程池
     for case in cases:
-        if case.py not in ['',None,' ','Npne']:
+        if case.py not in ['',None,' ','None']:
             t = threading.Thread(target=do_case,args=(case,)) # 声明子线程
             t.setDaemon(True) # 设置守护线程
             ts.append(t) # 添加到线程池
@@ -180,13 +181,48 @@ def bf_case(request,did):
         for t in tmp: # 让主线程等待
             t.join()
 
-
-
     time.sleep(1)
-
     print("全部执行完毕")
     return HttpResponse('')
 
+# 启动监控
+def start_monitor(request, did):
+    # 判断监控线程是否已经启动
+    try:
+        subprocess.check_output('ps -ef|grep "monitor.py %s WEB"|grep -v "grep"' % did,shell=True)
+        print("监控已经启动")
+        return HttpResponseRedirect('/case_list/'+did+'/')
+    except:
+        print("监控无，可以启动")
+    # 如果没启动，启动
+    def start_server():
+        subprocess.call('python3 Myapp/monitor.py %s WEB' % did,shell=True)
+    t = threading.Thread(target=start_server)
+    t.setDaemon(True)
+    t.start()
+    # 返回
+    return HttpResponseRedirect('/case_list/'+did+'/')
 
 
-    # return HttpResponse('')
+# 关闭监控
+def stop_monitor(request, did):
+    # 找到监控线程
+    try:
+        cop = subprocess.check_output('ps -ef|grep "monitor.py %s WEB"|grep -v "grep"' % did, shell=True)
+        print("监控已经启动，即将停止")
+        ports = re.findall(r'(\d+)',str(cop))
+        max_id = max([int(i) for i in ports])
+        subprocess.call('kill -9 %s'%str(max_id),shell=True)
+        print("服务停止")
+        # 杀掉监控
+
+    except:
+        print("监控无，无需停止")
+
+    return HttpResponseRedirect('/case_list/' + did + '/')
+
+
+
+
+
+
